@@ -12,8 +12,8 @@ function App() {
       </header>
       <main className='container-fluid input-container'>
         <SelectBoard />
-        <BoardForm />
         <CardForm />
+        <BoardForm />
       </main>
     </div>
   );
