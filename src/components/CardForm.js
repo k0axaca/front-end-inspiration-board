@@ -7,12 +7,12 @@ const CardForm = () => {
             <form>
                 <div className="form-group">
                 <label for="exampleFormControlTextarea1">Message:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <textarea className="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
             </div>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <input type="submit" className="btn btn-primary"/>
             </form>
         </div>
     );
-  }
+}
 
 export default CardForm;

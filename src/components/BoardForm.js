@@ -5,16 +5,16 @@ const BoardForm = () => {
         <div className="conatiner board-form pt-3">
             <h2>Create a Board</h2>
             <form>
-                <div class="form-group">
+                <div className="form-group">
                     <label for="formGroupExampleInput">Title:</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Computer Science" />
+                    <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Computer Science" />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label for="formGroupExampleInput2">Author:</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Ada Lovelace" />
+                    <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Ada Lovelace" />
                 </div>
             </form>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
         </div>
     );
 }
