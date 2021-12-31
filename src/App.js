@@ -22,6 +22,8 @@ function App() {
   );
 }
 
+// create a componet to display all cards
+
 export default App;
 
 
