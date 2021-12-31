@@ -7,6 +7,10 @@ import data from './data.json';
 
 function App() {
 
+  const onSubmitBoardDataHandler = enteredBoardData => {
+    console.log(enteredBoardData);
+  };
+
   console.log(data);
   return (
     <div className="App">
@@ -16,7 +20,7 @@ function App() {
       <main className='container-fluid input-container'>
         <SelectBoard boardData={data.boards}/>
         <CardForm />
-        <BoardForm />
+        <BoardForm onSubmitBoard={onSubmitBoardDataHandler}/>
       </main>
     </div>
   );
