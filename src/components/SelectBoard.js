@@ -12,7 +12,6 @@ const SelectBoard = (props) => {
         <h2>Select a Board</h2>
         <select className="custom-select" size="6">
         {boardList}
-        
       </select>
     </div>
     );
