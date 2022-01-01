@@ -37,8 +37,6 @@ const BoardForm = props => {
             return;
         };
 
-        console.log(enteredTitle, enteredAuthor);
-
         const newBoard = {
             title: enteredTitle,
             author: enteredAuthor,
@@ -73,8 +71,5 @@ const BoardForm = props => {
         return <button className="btn btn-primary hideFormBtn" onClick={() => setShowForm(true)}>Show Board Form</button>
     }
 };
-
-
-
 
 export default BoardForm;
