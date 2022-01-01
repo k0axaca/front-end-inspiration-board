@@ -70,7 +70,7 @@ const BoardForm = props => {
             </form>
         </div>
     } else {
-        return <button className="btn btn-primary" onClick={() => setShowForm(true)}>Show Board Form</button>
+        return <button className="btn btn-primary hideFormBtn" onClick={() => setShowForm(true)}>Show Board Form</button>
     }
 };
 

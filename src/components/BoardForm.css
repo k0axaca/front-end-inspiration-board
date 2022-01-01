@@ -10,3 +10,14 @@
 .invalid {
     color: red;
   }
+
+.hideFormBtn {
+    margin-top: 40px;
+    height: 130px;
+    justify-self: center;
+    align-self: center;
+}
+
+.btn {
+    margin-right: 5px;
+}
