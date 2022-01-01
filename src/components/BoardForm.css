@@ -12,8 +12,9 @@
   }
 
 .hideFormBtn {
-    margin-top: 40px;
-    height: 130px;
+    margin-top: 39px;
+    height: 134px;
+    width: 150px;
     justify-self: center;
     align-self: center;
 }
