@@ -5,11 +5,8 @@
 .invalid {
     border-color: red;
     background: rgb(253, 201, 201);
-  }
-  
-.invalid {
     color: red;
-  }
+}
 
 .hideFormBtn {
     margin-top: 39px;

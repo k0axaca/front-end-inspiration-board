@@ -37,10 +37,10 @@ const BoardForm = props => {
             return;
         };
 
-        const newBoard = {
+        const newBoard = [{
             title: enteredTitle,
-            author: enteredAuthor,
-        };
+            owner: enteredAuthor,
+        }];
 
         props.onSubmitBoard(newBoard);
         console.log(authorIsValid)
@@ -50,7 +50,6 @@ const BoardForm = props => {
         setTitleIsValid(true);
     };
     
-
     if (showForm) {
         return <div className="container board-form pt-3">
             <h2>Create a Board</h2>
