@@ -25,38 +25,47 @@ function App() {
     setBoard(modifiedBoard);
   };
 
-  //   CardContainer.js State and Event Handlers
-  const [cards, setCards] = useState([
-    { card_id: 0, message: "hello world", likes: 0 },
-    { card_id: 1, message: "goodnight moon", likes: 2 },
-  ]);
+  //   CardContainer.js State and Event Handlers (cards: an object of arrays where the key is board_id)
+  const [cardsByBoardId, setCardsByBoardId] = useState({
+    1: [
+      { card_id: 0, message: "hello world", likes: 0 },
+      { card_id: 1, message: "goodnight moon", likes: 2 },
+    ],
+  });
 
   const increaseLikes = (card) => {
-    console.log("hello lionel");
-    const newCards = [...cards];
-    const modifiedCard = cards.find(
+    const newCardsByBoardId = { ...cardsByBoardId };
+
+    if (!cardsByBoardId[board.id]) {
+      return;
+    }
+
+    const modifiedCard = cardsByBoardId[board.id].find(
       (currentCard) => currentCard.card_id === card.card_id
     );
     modifiedCard.likes += 1;
-    setCards(newCards);
+    setCardsByBoardId(newCardsByBoardId);
   };
 
   //   CardForm.js State and Event Handlers
   const [cardFormFields, setCardFormField] = useState({ message: "" });
 
   const addCardInstance = (newCard) => {
-    const newCardsInfo = [...cards];
+    const newCardsByBoardId = { ...cardsByBoardId };
     const nextCardId = Math.random();
 
     // TO-DO: BACK-END CALL TO CREATE A CARD COMPONENT AND USE THE CARD_ID THAT THIS BACK-END RESPONSE RETURNS.
+    if (!newCardsByBoardId[board.id]) {
+      newCardsByBoardId[board.id] = [];
+    }
 
-    newCardsInfo.push({
+    newCardsByBoardId[board.id].push({
       card_id: nextCardId,
       message: newCard.message,
       likes: 0,
     });
 
-    setCards(newCardsInfo);
+    setCardsByBoardId(newCardsByBoardId);
   };
 
   const onCardChange = (event) => {
@@ -76,11 +85,14 @@ function App() {
 
   // Card.js Event Handlers
   const deleteCard = (card) => {
-    let cardsDuplicate = [...cards];
-    cardsDuplicate = cardsDuplicate.filter((cardToDelete) => {
-      return cardToDelete.card_id !== card.card_id;
-    });
-    setCards(cardsDuplicate);
+    const cardsByBoardIdDuplicate = { ...cardsByBoardId };
+    let filteredCardsByBoardId = cardsByBoardIdDuplicate[board.id].filter(
+      (cardToDelete) => {
+        return cardToDelete.card_id !== card.card_id;
+      }
+    );
+    cardsByBoardIdDuplicate[board.id] = filteredCardsByBoardId;
+    setCardsByBoardId(cardsByBoardIdDuplicate);
   };
   return (
     <div className="App">
@@ -97,7 +109,7 @@ function App() {
         />
         <CardContainer
           board={board}
-          cards={cards}
+          cardsByBoardId={cardsByBoardId}
           increaseLikes={increaseLikes}
           deleteCard={deleteCard}
         />
