@@ -11,6 +11,20 @@ function App() {
     console.log(enteredBoardData);
   };
 
+  // SelectBoard.js State and Event Handlers (as they relate to Card Container)
+  const [board, setBoard] = useState(data.boards[0]);
+
+  const updateBoard = (event) => {
+    // console.log(data.boards);
+    // console.log(event.target.value);
+    const modifiedBoard = data.boards.find((currentBoard) => {
+      return currentBoard.id === parseInt(event.target.value);
+    });
+
+    // console.log(modifiedBoard);
+    setBoard(modifiedBoard);
+  };
+
   //   CardContainer.js State and Event Handlers
   const [cards, setCards] = useState([
     { card_id: 0, message: "hello world", likes: 0 },
@@ -74,7 +88,7 @@ function App() {
         <h1>Inspo Board</h1>
       </header>
       <main className="container-fluid input-container">
-        <SelectBoard boardData={data.boards} />
+        <SelectBoard boardData={data.boards} onSelectBoard={updateBoard} />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
         <CardForm
           value={cardFormFields}
@@ -82,7 +96,7 @@ function App() {
           onSubmit={onCardFormSubmit}
         />
         <CardContainer
-          boardData={data.boards}
+          board={board}
           cards={cards}
           increaseLikes={increaseLikes}
           deleteCard={deleteCard}

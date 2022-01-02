@@ -7,7 +7,7 @@ import "./CardContainer.css";
 const CardContainer = (props) => {
   return (
     <div className="container">
-      <h2>Cards for {props.boardData[0].title}</h2>
+      <h2>Cards for {props.board?.title}</h2>
       {props.cards.map((card) => {
         return (
           <Card
