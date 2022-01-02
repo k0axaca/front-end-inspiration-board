@@ -1,19 +1,20 @@
 import "./CardForm.css";
 
-const CardForm = () => {
+const CardForm = (props) => {
   return (
     <div className="container card-form pt-3">
       <h2>Create a Card</h2>
-      <form>
+      <form onSubmit={props.onSubmit}>
         <div className="form-group">
-          <label for="exampleFormControlTextarea1">Message:</label>
+          <label htmlFor="cardMessage">Message:</label>
           <textarea
             className="form-control"
-            id="exampleFormControlTextarea1"
+            id="cardMessage"
             rows="5"
+            onChange={props.onCardChange}
           ></textarea>
         </div>
-        <input type="submit" className="btn btn-primary" />
+        <input type="submit" value="Add Card" className="btn btn-primary" />
       </form>
     </div>
   );

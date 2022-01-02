@@ -5,13 +5,19 @@ import "./CardContainer.css";
 // Every time a message is submitted via CardForm.js, an instance of Card populates CardContainer.
 
 const CardContainer = (props) => {
-  // +1 Functionality
-  const [plusOne, setPlusOne] = useState(0);
-
   return (
     <div className="container">
-      <h2>Cards for {props.boardData.title}</h2>
-      <Card plusOne={plusOne} setPlusOne={setPlusOne} />
+      <h2>Cards for {props.boardData[0].title}</h2>
+      {props.cards.map((card) => {
+        return (
+          <Card
+            key={card.id}
+            increaseLikes={props.increaseLikes}
+            card={card}
+            deleteCard={props.deleteCard}
+          />
+        );
+      })}
     </div>
   );
 };

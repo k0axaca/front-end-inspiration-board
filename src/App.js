@@ -5,14 +5,69 @@ import CardForm from "./components/CardForm";
 import CardContainer from "./components/CardContainer";
 import BoardForm from "./components/BoardForm";
 import data from "./data.json";
-import Card from "./components/Card";
 
 function App() {
   const onSubmitBoardDataHandler = (enteredBoardData) => {
     console.log(enteredBoardData);
   };
 
-  console.log(data);
+  //   CardContainer.js State and Event Handlers
+  const [cards, setCards] = useState([
+    { card_id: 0, message: "hello world", likes: 0 },
+    { card_id: 1, message: "goodnight moon", likes: 2 },
+  ]);
+
+  const increaseLikes = (card) => {
+    console.log("hello lionel");
+    const newCards = [...cards];
+    const modifiedCard = cards.find(
+      (currentCard) => currentCard.card_id === card.card_id
+    );
+    modifiedCard.likes += 1;
+    setCards(newCards);
+  };
+
+  //   CardForm.js State and Event Handlers
+  const [cardFormFields, setCardFormField] = useState({ message: "" });
+
+  const addCardInstance = (newCard) => {
+    const newCardsInfo = [...cards];
+    const nextCardId = Math.random();
+
+    // TO-DO: BACK-END CALL TO CREATE A CARD COMPONENT AND USE THE CARD_ID THAT THIS BACK-END RESPONSE RETURNS.
+
+    newCardsInfo.push({
+      card_id: nextCardId,
+      message: newCard.message,
+      likes: 0,
+    });
+
+    setCards(newCardsInfo);
+  };
+
+  const onCardChange = (event) => {
+    setCardFormField({ ...cardFormFields, message: event.target.value });
+  };
+
+  const onCardFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(cardFormFields.message);
+    addCardInstance({
+      message: cardFormFields.message,
+    });
+    setCardFormField({
+      message: "",
+    });
+  };
+
+  // Card.js Event Handlers
+  const deleteCard = (card) => {
+    let cardsDuplicate = [...cards];
+    cardsDuplicate = cardsDuplicate.filter((cardToDelete) => {
+      return cardToDelete.card_id !== card.card_id;
+    });
+    setCards(cardsDuplicate);
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -21,9 +76,17 @@ function App() {
       <main className="container-fluid input-container">
         <SelectBoard boardData={data.boards} />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
-        <CardForm />
-
-        <CardContainer boardData={data.boards} />
+        <CardForm
+          value={cardFormFields}
+          onCardChange={onCardChange}
+          onSubmit={onCardFormSubmit}
+        />
+        <CardContainer
+          boardData={data.boards}
+          cards={cards}
+          increaseLikes={increaseLikes}
+          deleteCard={deleteCard}
+        />
       </main>
     </div>
   );
