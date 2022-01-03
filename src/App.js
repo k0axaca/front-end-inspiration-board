@@ -17,11 +17,11 @@ function App() {
   const increaseLikes = (card) => {
     const newCardsByBoardId = { ...cardsByBoardId };
 
-    if (!cardsByBoardId[board.id]) {
+    if (!cardsByBoardId[board.board_id]) {
       return;
     }
 
-    const modifiedCard = cardsByBoardId[board.id].find(
+    const modifiedCard = cardsByBoardId[board.board_id].find(
       (currentCard) => currentCard.card_id === card.card_id
     );
     modifiedCard.likes += 1;
@@ -55,20 +55,29 @@ function App() {
 
   const addCardInstance = (newCard) => {
     const newCardsByBoardId = { ...cardsByBoardId };
-    const nextCardId = Math.random();
+
+    axios
+      .post("https://backend-awesome-inspir-board.herokuapp.com/cards", [
+        {
+          message: newCard.message,
+          board_id: board.board_id,
+        },
+      ])
+
+      .then((response) => {
+        if (!newCardsByBoardId[board.board_id]) {
+          newCardsByBoardId[board.board_id] = [];
+        }
+
+        newCardsByBoardId[board.board_id].push({
+          card_id: response.data.id,
+          message: newCard.message,
+          likes: 0,
+        });
+        setCardsByBoardId(newCardsByBoardId);
+      });
 
     // TO-DO: BACK-END CALL TO CREATE A CARD COMPONENT AND USE THE CARD_ID THAT THIS BACK-END RESPONSE RETURNS.
-    if (!newCardsByBoardId[board.id]) {
-      newCardsByBoardId[board.id] = [];
-    }
-
-    newCardsByBoardId[board.id].push({
-      card_id: nextCardId,
-      message: newCard.message,
-      likes: 0,
-    });
-
-    setCardsByBoardId(newCardsByBoardId);
   };
 
   // onCardChange will ensure that the message is visible
@@ -99,12 +108,12 @@ function App() {
   // Card.js Event Handlers
   const deleteCard = (card) => {
     const cardsByBoardIdDuplicate = { ...cardsByBoardId };
-    let filteredCardsByBoardId = cardsByBoardIdDuplicate[board.id].filter(
+    let filteredCardsByBoardId = cardsByBoardIdDuplicate[board.board_id].filter(
       (cardToDelete) => {
         return cardToDelete.card_id !== card.card_id;
       }
     );
-    cardsByBoardIdDuplicate[board.id] = filteredCardsByBoardId;
+    cardsByBoardIdDuplicate[board.board_id] = filteredCardsByBoardId;
     setCardsByBoardId(cardsByBoardIdDuplicate);
   };
 
@@ -148,7 +157,7 @@ function App() {
         console.log("finally done!");
       });
   };
-  console.log(boardData);
+
   return (
     <div className="App">
       <header className="App-header">

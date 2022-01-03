@@ -8,7 +8,7 @@ const CardContainer = (props) => {
   return (
     <div className="container">
       <h2>{props.board?.title} Cards</h2>
-      {props.cardsByBoardId[props.board?.id]?.map((card) => {
+      {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
         return (
           <Card
             key={card.id}
