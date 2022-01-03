@@ -6,7 +6,7 @@ const SelectBoard = (props) => {
 
   const boardList = props.boardData.map((board) => {
     return (
-      <option key={board.id} value={board.id}>
+      <option key={board.board_id} value={board.id}>
         {board.title}
       </option>
     );
