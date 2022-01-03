@@ -8,10 +8,9 @@ import axios from "axios";
 
 function App() {
   const [boardData, setBoardData] = useState([]);
-  
+
   // SelectBoard.js State and Event Handlers (as they relate to Card Container)
   const [board, setBoard] = useState(undefined);
- 
 
   //   CardContainer.js State and Event Handlers (cardsByBoardId: an object of arrays where the key is board_id)
   const [cardsByBoardId, setCardsByBoardId] = useState({});
@@ -96,10 +95,14 @@ function App() {
   // onCardFormSubmit will ensure a new Card instance is created
   const onCardFormSubmit = (event) => {
     event.preventDefault();
+    const cardFormFieldsDuplicate = { ...cardFormFields };
+    cardFormFieldsDuplicate.message = "";
     if (
       cardFormFields.message.length === 0 ||
       cardFormFields.message.length > 40
     ) {
+      setCardFormField(cardFormFieldsDuplicate);
+
       setCardFormIsValid(false);
       return;
     }
@@ -107,9 +110,10 @@ function App() {
     addCardInstance({
       message: cardFormFields.message,
     });
-    setCardFormField({
-      message: "",
-    });
+
+    setCardFormField(cardFormFieldsDuplicate);
+    console.log(cardFormFields);
+
     setCardFormIsValid(true);
   };
 
