@@ -13,6 +13,11 @@ const CardForm = (props) => {
             rows="5"
             onChange={props.onCardChange}
           ></textarea>
+          <p>
+            {props.cardFormIsValid
+              ? ""
+              : "Error: Message is either blank or too long."}
+          </p>
         </div>
         <input type="submit" value="Add Card" className="btn btn-primary" />
       </form>

@@ -12,7 +12,7 @@ function App() {
   };
 
   // SelectBoard.js State and Event Handlers (as they relate to Card Container)
-  const [board, setBoard] = useState(data.boards[0]);
+  const [board, setBoard] = useState(undefined);
 
   const updateBoard = (event) => {
     // console.log(data.boards);
@@ -25,11 +25,23 @@ function App() {
     setBoard(modifiedBoard);
   };
 
-  //   CardContainer.js State and Event Handlers (cards: an object of arrays where the key is board_id)
+  //   CardContainer.js State and Event Handlers (cardsByBoardId: an object of arrays where the key is board_id)
   const [cardsByBoardId, setCardsByBoardId] = useState({
     1: [
-      { card_id: 0, message: "hello world", likes: 0 },
-      { card_id: 1, message: "goodnight moon", likes: 2 },
+      {
+        card_id: 0,
+        message: "hello world",
+        likes: 0,
+        cardFormError: "",
+        cardFormValid: false,
+      },
+      {
+        card_id: 1,
+        message: "goodnight moon",
+        likes: 2,
+        cardFormError: "",
+        cardFormValid: false,
+      },
     ],
   });
 
@@ -49,6 +61,7 @@ function App() {
 
   //   CardForm.js State and Event Handlers
   const [cardFormFields, setCardFormField] = useState({ message: "" });
+  const [cardFormIsValid, setCardFormIsValid] = useState(true);
 
   const addCardInstance = (newCard) => {
     const newCardsByBoardId = { ...cardsByBoardId };
@@ -68,19 +81,29 @@ function App() {
     setCardsByBoardId(newCardsByBoardId);
   };
 
+  // onCardChange will ensure that the message is visible
   const onCardChange = (event) => {
     setCardFormField({ ...cardFormFields, message: event.target.value });
   };
 
+  // onCardFormSubmit will ensure a new Card instance is created
   const onCardFormSubmit = (event) => {
     event.preventDefault();
-    console.log(cardFormFields.message);
+    if (
+      cardFormFields.message.length === 0 ||
+      cardFormFields.message.length > 40
+    ) {
+      setCardFormIsValid(false);
+      return;
+    }
+
     addCardInstance({
       message: cardFormFields.message,
     });
     setCardFormField({
       message: "",
     });
+    setCardFormIsValid(true);
   };
 
   // Card.js Event Handlers
@@ -94,6 +117,7 @@ function App() {
     cardsByBoardIdDuplicate[board.id] = filteredCardsByBoardId;
     setCardsByBoardId(cardsByBoardIdDuplicate);
   };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -106,6 +130,7 @@ function App() {
           value={cardFormFields}
           onCardChange={onCardChange}
           onSubmit={onCardFormSubmit}
+          cardFormIsValid={cardFormIsValid}
         />
         <CardContainer
           board={board}
@@ -117,7 +142,6 @@ function App() {
     </div>
   );
 }
-
 // create a componet to display all cards
 
 export default App;
