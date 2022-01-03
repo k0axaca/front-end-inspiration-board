@@ -1,49 +1,18 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SelectBoard from "./components/SelectBoard";
 import CardForm from "./components/CardForm";
 import CardContainer from "./components/CardContainer";
 import BoardForm from "./components/BoardForm";
 import data from "./data.json";
+import axios from "axios";
 
 function App() {
-  const onSubmitBoardDataHandler = (enteredBoardData) => {
-    console.log(enteredBoardData);
-  };
-
   // SelectBoard.js State and Event Handlers (as they relate to Card Container)
   const [board, setBoard] = useState(undefined);
-
-  const updateBoard = (event) => {
-    // console.log(data.boards);
-    // console.log(event.target.value);
-    const modifiedBoard = data.boards.find((currentBoard) => {
-      return currentBoard.id === parseInt(event.target.value);
-    });
-
-    // console.log(modifiedBoard);
-    setBoard(modifiedBoard);
-  };
-
+  const [boardData, setBoardData] = useState([]);
   //   CardContainer.js State and Event Handlers (cardsByBoardId: an object of arrays where the key is board_id)
-  const [cardsByBoardId, setCardsByBoardId] = useState({
-    1: [
-      {
-        card_id: 0,
-        message: "hello world",
-        likes: 0,
-        cardFormError: "",
-        cardFormValid: false,
-      },
-      {
-        card_id: 1,
-        message: "goodnight moon",
-        likes: 2,
-        cardFormError: "",
-        cardFormValid: false,
-      },
-    ],
-  });
+  const [cardsByBoardId, setCardsByBoardId] = useState({});
 
   const increaseLikes = (card) => {
     const newCardsByBoardId = { ...cardsByBoardId };
@@ -57,6 +26,27 @@ function App() {
     );
     modifiedCard.likes += 1;
     setCardsByBoardId(newCardsByBoardId);
+  };
+
+  const updateBoard = (event) => {
+    const modifiedBoard = boardData.find((currentBoard) => {
+      return currentBoard.title.trim() === event.target.value.trim();
+    });
+
+    // Loads all the cards associated with the selected board.
+    axios
+      .get(
+        `https://backend-awesome-inspir-board.herokuapp.com/boards/${modifiedBoard.board_id}/allcards`
+      )
+      .then((response) => {
+        const allCards = response.data;
+        setCardsByBoardId({
+          ...cardsByBoardId,
+          [modifiedBoard.board_id]: allCards,
+        });
+      });
+
+    setBoard(modifiedBoard);
   };
 
   //   CardForm.js State and Event Handlers
@@ -118,13 +108,54 @@ function App() {
     setCardsByBoardId(cardsByBoardIdDuplicate);
   };
 
+  // BACK-END CONNECTION
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://backend-awesome-inspir-board.herokuapp.com/boards/allboards"
+      )
+      .then((response) => {
+        console.log("response:", response);
+        console.log("response data:", response.data);
+        setBoardData(response.data);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        console.log("error response:", error.response);
+      });
+  }, []);
+
+  const onSubmitBoardDataHandler = (enteredBoardData) => {
+    console.log(enteredBoardData);
+
+    axios
+      .post(
+        "https://backend-awesome-inspir-board.herokuapp.com/boards",
+        enteredBoardData
+      )
+      .then((response) => {
+        console.log("response:", response);
+        console.log("response data:", response.data);
+        setBoardData([...boardData, response.data]);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        console.log("error response:", error.response);
+      })
+      // finally always runs
+      .finally(() => {
+        console.log("finally done!");
+      });
+  };
+  console.log(boardData);
   return (
     <div className="App">
       <header className="App-header">
         <h1>Inspo Board</h1>
       </header>
       <main className="container-fluid input-container">
-        <SelectBoard boardData={data.boards} onSelectBoard={updateBoard} />
+        <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
         {board ? (
           <>
