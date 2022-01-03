@@ -4,28 +4,36 @@ import SelectBoard from "./components/SelectBoard";
 import CardForm from "./components/CardForm";
 import CardContainer from "./components/CardContainer";
 import BoardForm from "./components/BoardForm";
-import data from "./data.json";
 import axios from "axios";
 
 function App() {
   // SelectBoard.js State and Event Handlers (as they relate to Card Container)
   const [board, setBoard] = useState(undefined);
   const [boardData, setBoardData] = useState([]);
+
   //   CardContainer.js State and Event Handlers (cardsByBoardId: an object of arrays where the key is board_id)
   const [cardsByBoardId, setCardsByBoardId] = useState({});
 
   const increaseLikes = (card) => {
     const newCardsByBoardId = { ...cardsByBoardId };
-
-    if (!cardsByBoardId[board.board_id]) {
-      return;
-    }
-
-    const modifiedCard = cardsByBoardId[board.board_id].find(
-      (currentCard) => currentCard.card_id === card.card_id
-    );
-    modifiedCard.likes += 1;
-    setCardsByBoardId(newCardsByBoardId);
+    axios
+      .patch(
+        `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`,
+        {
+          likes_count: (card.likes_count += 1),
+        }
+      )
+      .then((response) => {
+        if (!cardsByBoardId[board.board_id]) {
+          return;
+        }
+        const modifiedCard = cardsByBoardId[board.board_id].find(
+          (currentCard) => currentCard.card_id === card.card_id
+        );
+        console.log(modifiedCard);
+        modifiedCard.likes_count = response.data.likes_count;
+        setCardsByBoardId(newCardsByBoardId);
+      });
   };
 
   const updateBoard = (event) => {
@@ -76,8 +84,6 @@ function App() {
         });
         setCardsByBoardId(newCardsByBoardId);
       });
-
-    // TO-DO: BACK-END CALL TO CREATE A CARD COMPONENT AND USE THE CARD_ID THAT THIS BACK-END RESPONSE RETURNS.
   };
 
   // onCardChange will ensure that the message is visible
