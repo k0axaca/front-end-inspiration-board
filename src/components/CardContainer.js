@@ -10,13 +10,12 @@ const CardContainer = (props) => {
       <h2>{props.board?.title} Cards</h2>
       {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
         return (
-          <React.Fragment key={card.id}>
-            <Card
-              increaseLikes={props.increaseLikes}
-              card={card}
-              deleteCard={props.deleteCard}
-            />
-          </React.Fragment>
+          <Card
+            key={card.card_id}
+            increaseLikes={props.increaseLikes}
+            card={card}
+            deleteCard={props.deleteCard}
+          />
         );
       })}
     </div>
