@@ -180,27 +180,40 @@ function App() {
       <header className="App-header">
         <h1>Inspo Board</h1>
       </header>
-      <main className="container-fluid input-container">
-        <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
-        <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
+      <main className="container ">
+        <div>
+          <div className="row">
+            <div className="col-sm">
+              <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
+            </div>
+            <div className="col-sm">
+              <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
+            </div>
+            <div className="col-sm">
+              <CardForm
+                    value={cardFormFields}
+                    onCardChange={onCardChange}
+                    onSubmit={onCardFormSubmit}
+                    cardFormIsValid={cardFormIsValid}
+                />
+            </div>
+          </div>
+        <div>
         {board ? (
-          <>
-            <CardForm
-              value={cardFormFields}
-              onCardChange={onCardChange}
-              onSubmit={onCardFormSubmit}
-              cardFormIsValid={cardFormIsValid}
-            />
+      
             <CardContainer
               board={board}
               cardsByBoardId={cardsByBoardId}
               increaseLikes={increaseLikes}
               deleteCard={deleteCard}
             />
-          </>
+          
         ) : undefined}
+        </div>
+        </div>
       </main>
     </div>
+
   );
 }
 // create a componet to display all cards

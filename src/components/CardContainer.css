@@ -1,1 +1,12 @@
+/* 
+.cardContainer {
+    display: flex;
+    
+    margin-top: 20px;
+    flex-direction: column;
+} */
 
+.cardTitle {
+    display: inline;
+    
+}
