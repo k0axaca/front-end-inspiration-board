@@ -1,7 +1,8 @@
 import "./SelectBoard.css";
 
+
 const SelectBoard = (props) => {
-  console.log(props.boardData);
+  // console.log(props.boardData);
 
   const boardList = props.boardData.map((board) => {
     return (

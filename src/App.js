@@ -176,7 +176,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Inspo Board</h1>
+        <h1>{boardTitle}</h1>
       </header>
       <main className="container-fluid input-container">
         <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
