@@ -1,83 +1,62 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SelectBoard from "./components/SelectBoard";
 import CardForm from "./components/CardForm";
 import CardContainer from "./components/CardContainer";
 import BoardForm from "./components/BoardForm";
-import data from "./data.json";
+import axios from "axios";
 
 function App() {
-  const [boardData, setBoardData] = useState(data);
-  const onSubmitBoardDataHandler = (enteredBoardData) => {
-    console.log(enteredBoardData);
-    const axios = require('axios');
-
-    axios.post('https://backend-awesome-inspir-board.herokuapp.com/boards', enteredBoardData)
-      .then((response) => {
-        console.log('response:', response);
-        console.log('response data:', response.data);
-        setBoardData([...boardData, response.data]);
-      })
-      // how to string together 'then' statements? Not sure if this is correct
-      .then(() => {
-        console.log('boardData:', boardData);
-      })
-      .catch((error) => {
-        console.log('error:', error);
-        console.log('error response:', error.response);
-      })
-      // finally always runs
-      .finally(() => {
-        console.log('finally done!');
-      });
-  };
-
+  const [boardData, setBoardData] = useState([]);
+  
   // SelectBoard.js State and Event Handlers (as they relate to Card Container)
   const [board, setBoard] = useState(undefined);
-
-  const updateBoard = (event) => {
-    // console.log(data.boards);
-    // console.log(event.target.value);
-    const modifiedBoard = data.boards.find((currentBoard) => {
-      return currentBoard.id === parseInt(event.target.value);
-    });
-
-    // console.log(modifiedBoard);
-    setBoard(modifiedBoard);
-  };
+ 
 
   //   CardContainer.js State and Event Handlers (cardsByBoardId: an object of arrays where the key is board_id)
-  const [cardsByBoardId, setCardsByBoardId] = useState({
-    1: [
-      {
-        card_id: 0,
-        message: "hello world",
-        likes: 0,
-        cardFormError: "",
-        cardFormValid: false,
-      },
-      {
-        card_id: 1,
-        message: "goodnight moon",
-        likes: 2,
-        cardFormError: "",
-        cardFormValid: false,
-      },
-    ],
-  });
+  const [cardsByBoardId, setCardsByBoardId] = useState({});
 
   const increaseLikes = (card) => {
     const newCardsByBoardId = { ...cardsByBoardId };
+    axios
+      .patch(
+        `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`,
+        {
+          likes_count: card.likes_count,
+        }
+      )
+      .then((response) => {
+        if (!cardsByBoardId[board.board_id]) {
+          return;
+        }
+        const modifiedCard = cardsByBoardId[board.board_id].find(
+          (currentCard) => currentCard.card_id === card.card_id
+        );
+        if (modifiedCard.likes_count);
+        modifiedCard.likes_count += 1;
+        setCardsByBoardId(newCardsByBoardId);
+      });
+  };
 
-    if (!cardsByBoardId[board.id]) {
-      return;
-    }
+  const updateBoard = (event) => {
+    const modifiedBoard = boardData.find((currentBoard) => {
+      return currentBoard.title.trim() === event.target.value.trim();
+    });
 
-    const modifiedCard = cardsByBoardId[board.id].find(
-      (currentCard) => currentCard.card_id === card.card_id
-    );
-    modifiedCard.likes += 1;
-    setCardsByBoardId(newCardsByBoardId);
+    // Loads all the cards associated with the selected board.
+    axios
+      .get(
+        `https://backend-awesome-inspir-board.herokuapp.com/boards/${modifiedBoard.board_id}/allcards`
+      )
+      .then((response) => {
+        const allCards = response.data;
+        setCardsByBoardId({
+          ...cardsByBoardId,
+          [modifiedBoard.board_id]: allCards,
+        });
+      });
+
+    setBoard(modifiedBoard);
   };
 
   //   CardForm.js State and Event Handlers
@@ -86,20 +65,27 @@ function App() {
 
   const addCardInstance = (newCard) => {
     const newCardsByBoardId = { ...cardsByBoardId };
-    const nextCardId = Math.random();
 
-    // TO-DO: BACK-END CALL TO CREATE A CARD COMPONENT AND USE THE CARD_ID THAT THIS BACK-END RESPONSE RETURNS.
-    if (!newCardsByBoardId[board.id]) {
-      newCardsByBoardId[board.id] = [];
-    }
+    axios
+      .post("https://backend-awesome-inspir-board.herokuapp.com/cards", [
+        {
+          message: newCard.message,
+          board_id: board.board_id,
+        },
+      ])
 
-    newCardsByBoardId[board.id].push({
-      card_id: nextCardId,
-      message: newCard.message,
-      likes: 0,
-    });
+      .then((response) => {
+        if (!newCardsByBoardId[board.board_id]) {
+          newCardsByBoardId[board.board_id] = [];
+        }
 
-    setCardsByBoardId(newCardsByBoardId);
+        newCardsByBoardId[board.board_id].push({
+          card_id: response.data.id,
+          message: newCard.message,
+          likes_count: 0,
+        });
+        setCardsByBoardId(newCardsByBoardId);
+      });
   };
 
   // onCardChange will ensure that the message is visible
@@ -130,13 +116,63 @@ function App() {
   // Card.js Event Handlers
   const deleteCard = (card) => {
     const cardsByBoardIdDuplicate = { ...cardsByBoardId };
-    let filteredCardsByBoardId = cardsByBoardIdDuplicate[board.id].filter(
-      (cardToDelete) => {
-        return cardToDelete.card_id !== card.card_id;
-      }
-    );
-    cardsByBoardIdDuplicate[board.id] = filteredCardsByBoardId;
-    setCardsByBoardId(cardsByBoardIdDuplicate);
+    axios
+      .delete(
+        `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`
+      )
+      .then(() => {
+        let filteredCardsByBoardId = cardsByBoardIdDuplicate[
+          board.board_id
+        ].filter((cardToDelete) => {
+          return cardToDelete.card_id !== card.card_id;
+        });
+        cardsByBoardIdDuplicate[board.board_id] = filteredCardsByBoardId;
+        setCardsByBoardId(cardsByBoardIdDuplicate);
+      });
+  };
+
+  // BACK-END CONNECTION
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://backend-awesome-inspir-board.herokuapp.com/boards/allboards"
+      )
+      .then((response) => {
+        console.log("response:", response);
+        console.log("response data:", response.data);
+        setBoardData(response.data);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        console.log("error response:", error.response);
+      });
+  }, []);
+
+  const onSubmitBoardDataHandler = (enteredBoardData) => {
+    console.log(enteredBoardData);
+    // const axios = require("axios");
+
+    axios
+      .post("https://backend-awesome-inspir-board.herokuapp.com/boards", [
+        {
+          title: enteredBoardData.title,
+          owner: enteredBoardData.author,
+        },
+      ])
+      .then((response) => {
+        console.log("response:", response);
+        console.log("response data:", response.data);
+        setBoardData([...boardData, response.data]);
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        console.log("error response:", error.response);
+      })
+      // finally always runs
+      .finally(() => {
+        console.log("finally done!");
+      });
   };
 
   return (
@@ -145,7 +181,7 @@ function App() {
         <h1>Inspo Board</h1>
       </header>
       <main className="container-fluid input-container">
-        <SelectBoard boardData={data.boards} onSelectBoard={updateBoard} />
+        <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
         {board ? (
           <>
