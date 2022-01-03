@@ -1,20 +1,22 @@
 import './SelectBoard.css';
 
+
 const SelectBoard = (props) => {
-  console.log(props.boardData);
+  // console.log(props.boardData);
 
   const boardList = props.boardData.map(board => {
-    console.log(board);
+    // console.log(board);
     return <option key={board.board_id} value={board.board_id}>{board.title}</option>
   });
   
-  // showCards should be moved to app.js
+  // showCards should be moved to App.js
   const showCards = (event) => {
     const axios = require('axios');
     axios.get(`https://backend-awesome-inspir-board.herokuapp.com/boards/${event.target.value}/allcards`)
       .then((response) => {
         console.log('response:', response);
         console.log('response data:', response.data);
+        // props.onSelectTitleHandler(event.target.title);
       })
       .catch((error) => {
         console.log('error:', error);

@@ -15,8 +15,8 @@ function App() {
     axios
     .get('https://backend-awesome-inspir-board.herokuapp.com/boards/allboards')
       .then((response) => {
-        console.log('response:', response);
-        console.log('response data:', response.data);
+        // console.log('response:', response);
+        // console.log('response data:', response.data);
         setBoardData(response.data);
       })
       .catch((error) => {
@@ -39,6 +39,10 @@ function App() {
         console.log('response data:', response.data);
         setBoardData([...boardData, response.data]);
       })
+      // how to string together 'then' statements? Not sure if this is correct
+      .then(() => {
+        console.log('boardData:', boardData);
+      })
       .catch((error) => {
         console.log('error:', error);
         console.log('error response:', error.response);
@@ -55,7 +59,9 @@ function App() {
         <h1>{boardTitle}</h1>
       </header>
       <main className='container-fluid input-container'>
-        <SelectBoard boardData={boardData}/>
+        <SelectBoard boardData={boardData} 
+        // onSelectTitleHandler={setBoardTitle}
+        />
         <CardForm />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler}/>
       </main>
