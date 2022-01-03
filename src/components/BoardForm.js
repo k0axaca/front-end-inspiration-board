@@ -1,53 +1,47 @@
-import './BoardForm.css';
-import { useState } from 'react';
+import "./BoardForm.css";
+import { useState } from "react";
 
-const BoardForm = props => {
-    const [enteredTitle, setEnteredTitle] = useState('');
-    const [enteredAuthor, setEnteredAuthor] = useState('');
-    const [showForm, setShowForm] = useState(true);
-    const [authorIsValid, setAuthorIsValid] = useState(true);
-    const [titleIsValid, setTitleIsValid] = useState(true);
+const BoardForm = (props) => {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAuthor, setEnteredAuthor] = useState("");
+  const [showForm, setShowForm] = useState(true);
+  const [authorIsValid, setAuthorIsValid] = useState(true);
+  const [titleIsValid, setTitleIsValid] = useState(true);
 
-    const titleChangeHandler = (event) => {
-        setEnteredTitle(event.target.value);
-        if (event.target.value.trim().length > 0) {
-            setTitleIsValid(true);
-        }
+  const titleChangeHandler = (event) => {
+    setEnteredTitle(event.target.value);
+    if (event.target.value.trim().length > 0) {
+      setTitleIsValid(true);
+    }
+  };
+
+  const authorChangeHandler = (event) => {
+    setEnteredAuthor(event.target.value);
+    if (event.target.value.trim().length > 0) {
+      setAuthorIsValid(true);
+    }
+  };
+
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    if (enteredAuthor.trim().length === 0 && enteredTitle.trim().length === 0) {
+      setTitleIsValid(false);
+      setAuthorIsValid(false);
+      return;
+    } else if (enteredTitle.trim().length === 0) {
+      setTitleIsValid(false);
+      return;
+    } else if (enteredAuthor.trim().length === 0) {
+      setAuthorIsValid(false);
+      return;
     };
+};
 
-    const authorChangeHandler = (event) => {
-        setEnteredAuthor(event.target.value);
-        if (event.target.value.trim().length > 0) {
-            setAuthorIsValid(true);
-        }
-    };
 
-    const submitHandler = event => {
-        event.preventDefault();
-        if (enteredAuthor.trim().length === 0 && enteredTitle.trim().length === 0) {
-            setTitleIsValid(false);
-            setAuthorIsValid(false);
-            return;
-        }
-        else if (enteredTitle.trim().length === 0) {
-            setTitleIsValid(false);
-            return;
-        } else if (enteredAuthor.trim().length === 0) {
-            setAuthorIsValid(false);
-            return;
-        };
-
-        const newBoard = [{
-            title: enteredTitle,
-            owner: enteredAuthor,
-        }];
-
-        props.onSubmitBoard(newBoard);
-        console.log(authorIsValid)
-        setEnteredTitle('');
-        setEnteredAuthor('');
-        setAuthorIsValid(true);
-        setTitleIsValid(true);
+    const newBoard = {
+        title: enteredTitle,
+        author: enteredAuthor,
     };
     
     if (showForm) {

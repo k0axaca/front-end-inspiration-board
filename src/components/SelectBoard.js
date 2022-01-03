@@ -1,4 +1,4 @@
-import './SelectBoard.css';
+import "./SelectBoard.css";
 
 
 const SelectBoard = (props) => {
