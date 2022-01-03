@@ -108,13 +108,19 @@ function App() {
   // Card.js Event Handlers
   const deleteCard = (card) => {
     const cardsByBoardIdDuplicate = { ...cardsByBoardId };
-    let filteredCardsByBoardId = cardsByBoardIdDuplicate[board.board_id].filter(
-      (cardToDelete) => {
-        return cardToDelete.card_id !== card.card_id;
-      }
-    );
-    cardsByBoardIdDuplicate[board.board_id] = filteredCardsByBoardId;
-    setCardsByBoardId(cardsByBoardIdDuplicate);
+    axios
+      .delete(
+        `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`
+      )
+      .then(() => {
+        let filteredCardsByBoardId = cardsByBoardIdDuplicate[
+          board.board_id
+        ].filter((cardToDelete) => {
+          return cardToDelete.card_id !== card.card_id;
+        });
+        cardsByBoardIdDuplicate[board.board_id] = filteredCardsByBoardId;
+        setCardsByBoardId(cardsByBoardIdDuplicate);
+      });
   };
 
   // BACK-END CONNECTION
