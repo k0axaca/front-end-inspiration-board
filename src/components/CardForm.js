@@ -11,6 +11,7 @@ const CardForm = (props) => {
             className="form-control"
             id="cardMessage"
             rows="5"
+            value={props.value.message}
             onChange={props.onCardChange}
           ></textarea>
           <p>
