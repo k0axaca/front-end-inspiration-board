@@ -126,18 +126,22 @@ function App() {
       <main className="container-fluid input-container">
         <SelectBoard boardData={data.boards} onSelectBoard={updateBoard} />
         <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
-        <CardForm
-          value={cardFormFields}
-          onCardChange={onCardChange}
-          onSubmit={onCardFormSubmit}
-          cardFormIsValid={cardFormIsValid}
-        />
-        <CardContainer
-          board={board}
-          cardsByBoardId={cardsByBoardId}
-          increaseLikes={increaseLikes}
-          deleteCard={deleteCard}
-        />
+        {board ? (
+          <>
+            <CardForm
+              value={cardFormFields}
+              onCardChange={onCardChange}
+              onSubmit={onCardFormSubmit}
+              cardFormIsValid={cardFormIsValid}
+            />
+            <CardContainer
+              board={board}
+              cardsByBoardId={cardsByBoardId}
+              increaseLikes={increaseLikes}
+              deleteCard={deleteCard}
+            />
+          </>
+        ) : undefined}
       </main>
     </div>
   );
