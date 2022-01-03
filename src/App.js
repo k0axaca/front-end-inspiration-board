@@ -20,7 +20,7 @@ function App() {
       .patch(
         `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`,
         {
-          likes_count: (card.likes_count += 1),
+          likes_count: card.likes_count,
         }
       )
       .then((response) => {
@@ -30,8 +30,8 @@ function App() {
         const modifiedCard = cardsByBoardId[board.board_id].find(
           (currentCard) => currentCard.card_id === card.card_id
         );
-        console.log(modifiedCard);
-        modifiedCard.likes_count = response.data.likes_count;
+        if (modifiedCard.likes_count);
+        modifiedCard.likes_count += 1;
         setCardsByBoardId(newCardsByBoardId);
       });
   };
@@ -80,7 +80,7 @@ function App() {
         newCardsByBoardId[board.board_id].push({
           card_id: response.data.id,
           message: newCard.message,
-          likes: 0,
+          likes_count: 0,
         });
         setCardsByBoardId(newCardsByBoardId);
       });
@@ -149,12 +149,15 @@ function App() {
 
   const onSubmitBoardDataHandler = (enteredBoardData) => {
     console.log(enteredBoardData);
+    // const axios = require("axios");
 
     axios
-      .post(
-        "https://backend-awesome-inspir-board.herokuapp.com/boards",
-        enteredBoardData
-      )
+      .post("https://backend-awesome-inspir-board.herokuapp.com/boards", [
+        {
+          title: enteredBoardData.title,
+          owner: enteredBoardData.author,
+        },
+      ])
       .then((response) => {
         console.log("response:", response);
         console.log("response data:", response.data);
