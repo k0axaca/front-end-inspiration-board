@@ -11,7 +11,7 @@ const CardContainer = (props) => {
       <div className="cardContainer">
         {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
           return (
-            <div>
+            <div className="cardContainer-child">
               <Card
                 key={card.card_id}
                 increaseLikes={props.increaseLikes}
