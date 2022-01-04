@@ -10,3 +10,11 @@
     display: inline;
     
 }
+
+.flex-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+    margin-top: 20px;
+}

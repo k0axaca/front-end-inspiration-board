@@ -12,7 +12,7 @@ const CardContainer = (props) => {
       
       {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
         return (
-          <div className="col-sm">
+          <div className="flex-box">
             <Card
               key={card.card_id}
               increaseLikes={props.increaseLikes}

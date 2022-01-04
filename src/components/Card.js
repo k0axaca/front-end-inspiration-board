@@ -22,7 +22,7 @@ const Card = (props) => {
           Delete
         </button>
       </a>
-      <p>{props.card.likes_count} likes</p>
+      <p>{props.card.likes_count} ⭐️</p>
     </div>
   );
 };
