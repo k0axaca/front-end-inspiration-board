@@ -22,7 +22,7 @@
 #like,
 #delete {
   justify-content: space-evenly;
-  margin: 1em;
+  margin: .6em;
 }
 
 .card-text {
@@ -34,5 +34,5 @@
 .card-likes {
   margin: auto;
   padding: auto;
-  font-size: .96em;
+  font-size: 1em;
 }
