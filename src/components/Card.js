@@ -4,7 +4,7 @@ import "./Card.css";
 // This is the actual card. Every time a message is submitted via CardForm, this will be generated.
 const Card = (props) => {
   return (
-    <div className="card w-75 pt-3">
+    <div className="card">
       <section className="card-text">{props.card.message}</section>
       <a href="#">
         <button
