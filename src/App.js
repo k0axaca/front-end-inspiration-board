@@ -21,7 +21,7 @@ function App() {
       .patch(
         `https://backend-awesome-inspir-board.herokuapp.com/cards/${card.card_id}`,
         {
-          likes_count: card.likes_count,
+          likes_count: 1,
         }
       )
       .then((response) => {
@@ -31,8 +31,9 @@ function App() {
         const modifiedCard = cardsByBoardId[board.board_id].find(
           (currentCard) => currentCard.card_id === card.card_id
         );
-        if (modifiedCard.likes_count);
-        modifiedCard.likes_count += 1;
+        if ("likes_count" in modifiedCard) {
+          modifiedCard.likes_count += 1;
+        }
         setCardsByBoardId(newCardsByBoardId);
       });
   };
@@ -95,13 +96,12 @@ function App() {
   // onCardFormSubmit will ensure a new Card instance is created
   const onCardFormSubmit = (event) => {
     event.preventDefault();
-    const cardFormFieldsDuplicate = { ...cardFormFields };
-    cardFormFieldsDuplicate.message = "";
+
     if (
       cardFormFields.message.length === 0 ||
       cardFormFields.message.length > 40
     ) {
-      setCardFormField(cardFormFieldsDuplicate);
+      setCardFormField({ message: "" });
 
       setCardFormIsValid(false);
       return;
@@ -111,8 +111,7 @@ function App() {
       message: cardFormFields.message,
     });
 
-    setCardFormField(cardFormFieldsDuplicate);
-    console.log(cardFormFields);
+    setCardFormField({ message: "" });
 
     setCardFormIsValid(true);
   };
