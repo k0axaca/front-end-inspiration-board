@@ -194,29 +194,26 @@ function App() {
             </div>
             <div className="center col-sm">
               <CardForm
-                    value={cardFormFields}
-                    onCardChange={onCardChange}
-                    onSubmit={onCardFormSubmit}
-                    cardFormIsValid={cardFormIsValid}
-                />
+                value={cardFormFields}
+                onCardChange={onCardChange}
+                onSubmit={onCardFormSubmit}
+                cardFormIsValid={cardFormIsValid}
+              />
             </div>
           </div>
-        <div>
-        {board ? (
-      
-            <CardContainer
-              board={board}
-              cardsByBoardId={cardsByBoardId}
-              increaseLikes={increaseLikes}
-              deleteCard={deleteCard}
-            />
-          
-        ) : undefined}
-        </div>
+          <div>
+            {board ? (
+              <CardContainer
+                board={board}
+                cardsByBoardId={cardsByBoardId}
+                increaseLikes={increaseLikes}
+                deleteCard={deleteCard}
+              />
+            ) : undefined}
+          </div>
         </div>
       </main>
     </div>
-
   );
 }
 // create a componet to display all cards

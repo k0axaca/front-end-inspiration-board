@@ -1,20 +1,18 @@
-/* 
 .cardContainer {
-    display: flex;
-    
-    margin-top: 20px;
-    flex-direction: column;
-} */
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin-bottom: auto;
+  flex-direction: row;
+}
 
-.cardTitle {
-    display: inline;
-    
+h2.cardTitle {
+  margin-top: 50px;
 }
 
 .flex-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    width: 100%;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  width: 100%;
+  margin-top: 20px;
 }

@@ -7,23 +7,21 @@ import "./CardContainer.css";
 const CardContainer = (props) => {
   return (
     <>
-    <h2 className="cardTitle">{props.board?.title} Cards</h2>
-    <div className="cardContainer">
-      
-      {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
-        return (
-          <div className="flex-box">
-            <Card
-              key={card.card_id}
-              increaseLikes={props.increaseLikes}
-              card={card}
-              deleteCard={props.deleteCard}
-            />
-          </div>
-      
-        );
-      })}
-    </div>
+      <h2 className="cardTitle">{props.board?.title} Cards</h2>
+      <div className="cardContainer">
+        {props.cardsByBoardId[props.board?.board_id]?.map((card) => {
+          return (
+            <div className="flex-box">
+              <Card
+                key={card.card_id}
+                increaseLikes={props.increaseLikes}
+                card={card}
+                deleteCard={props.deleteCard}
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
