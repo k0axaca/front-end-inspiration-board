@@ -1,8 +1,10 @@
 .cardContainer {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
-  margin-bottom: auto;
+  margin-bottom: 50px;
   flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
 }
 
 h2.cardTitle {
