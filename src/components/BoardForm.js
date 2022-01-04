@@ -52,7 +52,7 @@ const BoardForm = (props) => {
   if (showForm) {
     return (
       <div className="container board-form pt-3">
-        <h2>Create a Board</h2>
+        <h2 className="boardForm">Create a Board</h2>
         <form onSubmit={submitHandler}>
           <div className="form-group">
             <label htmlFor="formGroupExampleInput">Title:</label>
