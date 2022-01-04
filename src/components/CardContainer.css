@@ -1,20 +1,13 @@
 .cardContainer {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  margin-bottom: 50px;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  margin-bottom: 50px;*/
+  display: inline-flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
 h2.cardTitle {
-  margin-top: 50px;
-}
-
-.flex-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  width: 100%;
-  margin-top: 20px;
+  margin: 16px;
+  text-transform: capitalize;
 }
