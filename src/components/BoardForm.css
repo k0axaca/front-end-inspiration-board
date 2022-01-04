@@ -10,10 +10,11 @@
 
 .hideFormBtn {
     margin-top: 39px;
-    height: 134px;
-    width: 150px;
-    justify-self: center;
-    align-self: center;
+    height: 50px;
+    width: 200px;
+    background: #4778db;
+
+    color: white;
 }
 
 .btn {

@@ -190,7 +190,7 @@ function App() {
             <div className="col-sm">
               <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
             </div>
-            <div className="col-sm">
+            <div className="boardForm col-sm">
               <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
             </div>
             <div className="col-sm">

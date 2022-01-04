@@ -4,7 +4,7 @@ import { useState } from "react";
 const BoardForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAuthor, setEnteredAuthor] = useState("");
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const [authorIsValid, setAuthorIsValid] = useState(true);
   const [titleIsValid, setTitleIsValid] = useState(true);
 
