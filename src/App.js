@@ -187,13 +187,13 @@ function App() {
       <main className="container ">
         <div>
           <div className="row">
-            <div className="col-sm">
+            <div className="center col-sm">
               <SelectBoard boardData={boardData} onSelectBoard={updateBoard} />
             </div>
-            <div className="boardForm col-sm">
+            <div className="center boardBtn col-sm">
               <BoardForm onSubmitBoard={onSubmitBoardDataHandler} />
             </div>
-            <div className="col-sm">
+            <div className="center col-sm">
               <CardForm
                     value={cardFormFields}
                     onCardChange={onCardChange}
