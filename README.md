@@ -1,5 +1,5 @@
 # Inspo Board
-Inspo Board is a React app for users to share notes, jokes, and quotes.
+Full-stack React application that allows users to create and add cards to inspiration boards. We utilized RESTful CRUD routes for models, including one-to-many relationship models.
 
 ## Demo Link:
 https://ada-inspiration-board.herokuapp.com/
