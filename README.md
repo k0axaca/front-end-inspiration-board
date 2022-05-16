@@ -60,7 +60,7 @@ This was a full-stack project for Ada Developers Academy. We set out to build an
 
 We made this CRUD app with the help of an API that we made together. We designed the database relationships and associations between tables, including one-to-many models. We utilized SqlAlchemy and Flask to access the data in PostgreSQL. 
 
-For this project, we were instructed to use React. We passed props between components and queried the API using Axios. For the design, we decided to focus on functionality and made our UI using Bootstrap. 
+For this project, we were instructed to use React. We passed props between components, utilized hooks for state management, and queried the API using Axios. For the design, we decided to focus on functionality and made our UI using Bootstrap. 
 
 ## Credits
 List of contributors:
