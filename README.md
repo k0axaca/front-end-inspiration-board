@@ -30,7 +30,7 @@ Creating a board, creating a card, adding a 'like,' and deleting the card <br>
 
 
 ## Technologies
-I used `ReactJS`, `Python`, `Bootstrap`, `Flask` ((including Migrate and Alembic), `SQLAlchemy`, `Axios`, `PostgreSQL`, `Postman`
+I used `ReactJS`, `Python`, `Bootstrap`, `Flask` ((including Migrate and Alembic), `SQLAlchemy`, `Axios`, `PostgreSQL`, `Postman`, `Heroku`
 
 ## Setup
 
@@ -56,9 +56,9 @@ To Visit App:
 
 ## Summary
 
-This was a full-stack project for Ada Developers Academy. We set out to build an app to demonstrate our learnings related to back-end and front-end development and solidify concepts through trial and error. 
+This was a full-stack project for Ada Developers Academy. We set out to build an app to demonstrate our learnings related to back-end and front-end development and solidify concepts through in-depth research and following Agile best practices. 
 
-We made this CRUD app with the help of an API that we made together. We designed the database relationships and associations between tables, including one-to-many models. We utilized SqlAlchemy and Flask to access the data in PostgreSQL. 
+We made this CRUD app with the help of an API that we made together. We designed the database relationships and associations between tables, including one-to-many models. We utilized SqlAlchemy and Flask to access the data in PostgreSQL. The website is deployed on the cloud on Heroku.
 
 For this project, we were instructed to use React. We passed props between components, utilized hooks for state management, and queried the API using Axios. For the design, we decided to focus on functionality and made our UI using Bootstrap. 
 
