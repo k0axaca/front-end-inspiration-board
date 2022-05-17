@@ -1,6 +1,12 @@
 # Inspo Board
 Full-stack React application that allows users to create and add cards to inspiration boards. We utilized RESTful CRUD routes for models, including one-to-many relationship models.
 
+## Hello, do you work at Lyft 🚗 ?
+
+Here is another CRUD app I worked on independently: https://github.com/k0axaca/task-list-api
+
+Thanks for stopping by!
+
 ## Demo Link:
 https://ada-inspiration-board.herokuapp.com/
 
@@ -62,10 +68,6 @@ We made this CRUD app with the help of an API that we made together. We designed
 
 For this project, we were instructed to use React. We passed props between components, utilized hooks for state management, and queried the API using Axios. For the design, we decided to focus on functionality and made our UI using Bootstrap. 
 
-## Hello, do you work at Lyft 🚗 ?
-
-Here is another CRUD app I worked on independently: https://github.com/k0axaca/task-list-api
-Thanks for stopping by!
 
 ## Credits
 List of contributors:
