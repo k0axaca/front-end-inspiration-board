@@ -5,7 +5,7 @@ Full-stack React application that allows users to create and add cards to inspir
 
 After working on several RESTful APIs, we added a front-end layer to visually display data in a React app.
 
-Here is another RESTful CRUD API I worked on independently: https://github.com/k0axaca/task-list-api
+**Here is another RESTful CRUD API I worked on independently: https://github.com/k0axaca/task-list-api
 
 ## Demo Link:
 https://ada-inspiration-board.herokuapp.com/
