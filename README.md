@@ -24,7 +24,7 @@ https://github.com/cecilia-yyw/back-end-inspiration-board
 - [License](#license)
 
 ## About The App
-Inspo Board offers users the opportunity to connect through virtual boards and notes. Since we were not able to meet in-person during Covid, users can gether and share information online. 
+Inspo Board offers users the opportunity to connect through virtual boards and notes. Since we were not able to meet in-person during Covid, users can gather and share information online. 
 
 ![A corkboard full of pinned sticky notes, where each sticky note has a short, inspirational message.](https://github.com/Ada-C16/full-stack-inspiration-board/blob/main/assets/board.jpeg)  
 _Fig. A corkboard full of pinned sticky notes, where each sticky note has a short, inspirational message._
