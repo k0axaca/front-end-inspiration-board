@@ -13,6 +13,9 @@ https://ada-inspiration-board.herokuapp.com/
 ## Link to Back End Code
 https://github.com/cecilia-yyw/back-end-inspiration-board
 
+## Style Guide
+[Style Guide](https://docs.google.com/document/d/1ODucocGrv73mx8ZL36fQ7_MnI92Mg4AZfEHTcFxFjH0/edit?usp=sharing)
+
 ## Table of Content:
 
 - [About The App](#about-the-app)
