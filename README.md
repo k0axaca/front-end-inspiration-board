@@ -39,7 +39,7 @@ Creating a board, creating a card, adding a 'like,' and deleting the card <br>
 
 
 ## Technologies
-I used `ReactJS`, `Python`, `Bootstrap`, `Flask` ((including Migrate and Alembic), `SQLAlchemy`, `Axios`, `PostgreSQL`, `Postman`, `Heroku`
+I used `ReactJS`, `Python`, `Bootstrap`, `Flask` ((including Migrate and Alembic), `SQLAlchemy`, `Axios`, `PostgreSQL`, `Postman`, and `Heroku`.
 
 ## Setup
 
